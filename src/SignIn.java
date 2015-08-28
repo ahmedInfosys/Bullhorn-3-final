@@ -48,6 +48,7 @@ public class SignIn extends HttpServlet {
 		User single_user = new User();
 		
 		single_user = process_user.select_single(Email, Password);
+		System.out.println(single_user);
 		
 		if(single_user == null){
 			
@@ -68,8 +69,11 @@ public class SignIn extends HttpServlet {
 			welcome += single_user.getFirstname() + " " + single_user.getLastname();
 			
 			request.setAttribute("welcome", welcome);
-			
+			request.setAttribute("sign_in_out", "Sign out");
+			request.setAttribute("account", "");
 			Comment comment = new Comment();
+			
+			CommentDB  comment_db =  new CommentDB();
 			String single_comment,output, comment_date;
 			output="";
 			Date now  = new Date();
@@ -77,29 +81,64 @@ public class SignIn extends HttpServlet {
 			
 			single_comment = request.getParameter("comment");
 			comment_date = sdf.format(now);
-			
-			if(CommentDB.select_all() != null){
-				for (Comment comm: CommentDB.select_all())
-				{
-					
-					
-					output+= "<nav class=\"navbar navbar-default \"><div class=\"navbar-text navbar-default\">  <p ><b>Comment: </b>"+ comm.getContentText() + "</p> </div> ";
-				    output+= "<div class=\"navbar-text navbar-right\"> <p class=\"navbar-text navbar-right\">"+ comm.getCommentDate() +
-				         "</p> </div> </nav>";
-				  
-				          
-				    
-				  }
-			}
-			
-			
-			request.setAttribute("comments", output);
 
-	        getServletContext().getRequestDispatcher("/Bullhorn.jsp").forward(request,response);
+			
+			if(session.getAttribute("UserID") != null){
+				String Sign_out =  "<div class=\"col-sm-2 col-sm-offset-10\">" +
+	            " <form action= \"SignIn.jsp\" class=\"form-signin\">"
+						+ "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign out</button>" 
+						+ "</form> </div>";
+				String account = "";
+				request.setAttribute("sign_in_out", Sign_out);
+				request.setAttribute("account",account);
+				System.out.println(session.getAttribute("UserID"));
+				long ID = Long.parseLong("" + session.getAttribute("UserID") + "");
+				if(single_comment != null){
+					
+					comment.setCommentDate(comment_date);
+					comment.setContentText(single_comment);
+					comment.setUserId(ID);
+					CommentDB.insert(comment);
+				}
+				
+				
+				
+				String FirstName = "", LastName = "";
+				
+
+				for (Comment comm: CommentDB.select_all())
+					{
+
+						FirstName = UserDB.select_single_id(comm.getUserId()).getFirstname();
+					     LastName = UserDB.select_single_id(comm.getUserId()).getLastname();
+
+
+							
+							output+= "<nav class=\"navbar navbar-default \"><div class=\"navbar-text navbar-default\">  <p ><b>Comment: </b>"+ comm.getContentText() + "</p> </div> ";
+						    output+= "<div class=\"navbar-text navbar-right\"> <p class=\"navbar-text navbar-right\">"+ comm.getCommentDate() +
+						         "</p>" + "<p class=\"navbar-text navbar-right\">" + FirstName + " " + LastName + "</p> </div> </nav>";
+					  
+						}
+					    
+				     }else{
+				    	 String Sign_out =  "<div class=\"col-sm-2 col-sm-offset-10\">" +
+				    	            " <form action= \"SignIn.jsp\" class=\"form-signin\">"
+				    						+ "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>" 
+				    						+ "</form> </div>";
+				    	 String account =  "<div class=\"col-sm-2 col-sm-offset-10\">" +
+				    	            " <form action= \"SignUpjsp\" style=\"background-color:#CC66FF\"class=\"form-signin\">"
+				    						+ "<button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>" 
+				    						+ "</form> </div>";
+				    	 request.setAttribute("sign_in_out", Sign_out );
+					     request.setAttribute("account", "Create an account");
+				     }
+
+			request.setAttribute("comments", output);
 		}
+
 		
-		getServletContext().getRequestDispatcher(Page).forward(request,response);
-		
+
+        getServletContext().getRequestDispatcher(Page).forward(request,response);
 	}
 
 	/**

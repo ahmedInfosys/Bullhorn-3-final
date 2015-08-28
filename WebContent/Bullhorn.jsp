@@ -26,19 +26,9 @@
       <ul class="nav navbar-nav">
       	<li><h1><b>${welcome}</b></h1></li>
       </ul>
-  <div class="col-sm-2 col-sm-offset-10">
-            <div class="account-wall">
-                <form action= "SignIn.jsp" class="form-signin">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                </form>
-            </div>
-         </div>
-            
-              <div class="account-wall col-sm-2 col-sm-offset-10">
-                <form action= "SignUp" class="form-signin">
-                <button class="btn btn-lg btn-primary btn-block" formaction="/Bullhorm/SignUp.jsp"style="background-color:#CC66FF" type="submit">Create Account</button>
-               </form>
-            </div>
+     
+ ${sign_in_out}
+${account}	
       
     </div>
     

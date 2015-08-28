@@ -53,16 +53,20 @@ public class UserDB {
 	
 	public static User select_single_id(long id){
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		String qString = "select u from User u where u.id = :ID";
-		TypedQuery <User> q = em.createQuery(qString, User.class);
+		//String qString = "select u from User u where u.id = :ID";
+		//TypedQuery <User> q = em.createQuery(qString, User.class);
 		
-		q.setParameter("ID", id);
-		User user = null;
+		//q.setParameter("ID", id);
+		User user = new User();
 		try{
-			user = q.getSingleResult();
+//			user = q.getSingleResult();
+			System.out.println(id + " from user db");
+			user = em.find(User.class, id);
+			
+			System.out.println(" From User DB " + user.getFirstname());
 			
 		}catch(NoResultException e){
-			System.out.println(e);
+			e.printStackTrace();
 		}finally{
 			em.clear();
 		}
