@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 
@@ -18,11 +17,15 @@ public class User implements Serializable {
 	@Id
 	@SequenceGenerator(name = "USERS_SEQ", catalog = "",schema="TESTDB",allocationSize = 1,initialValue = 1)
 	@GeneratedValue(strategy =  GenerationType.SEQUENCE,generator="USERS_SEQ")
+
 	private long id;
 
 	private String email;
 
 	private String firstname;
+
+	@Column(name="JOIN_DATE")
+	private String joinDate;
 
 	private String lastname;
 
@@ -53,6 +56,14 @@ public class User implements Serializable {
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
+	}
+
+	public String getJoinDate() {
+		return this.joinDate;
+	}
+
+	public void setJoinDate(String joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	public String getLastname() {

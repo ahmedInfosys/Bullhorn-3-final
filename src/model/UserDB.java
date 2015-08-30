@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -30,7 +31,7 @@ public class UserDB {
 		return list_of_comments;
 	}
 	
-	public static User select_single(String Email, String Password){
+	public static User Isvalid(String Email, String Password){
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		String qString = "select u from User u where u.email = :Email" +
 				" and u.zipcode = :Password"  ;
@@ -51,20 +52,32 @@ public class UserDB {
 		return user;
 	}
 	
+	public static List <User> ExistsorNot(String Email){
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		String qString = "select distinct u from User u where u.email = :Email";
+		TypedQuery <User> q = em.createQuery(qString, User.class);
+		
+		q.setParameter("Email", Email);
+		
+		List <User> user = new ArrayList<User>();
+		try{
+			user = q.getResultList();
+			//System.out.println(user.getEmail());
+		}catch(NoResultException e){
+			System.out.println(e);
+		}finally{
+			em.clear();
+		}
+		return user;
+	}
+	
 	public static User select_single_id(long id){
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		//String qString = "select u from User u where u.id = :ID";
-		//TypedQuery <User> q = em.createQuery(qString, User.class);
-		
-		//q.setParameter("ID", id);
+
 		User user = new User();
 		try{
-//			user = q.getSingleResult();
-			System.out.println(id + " from user db");
+
 			user = em.find(User.class, id);
-			
-			System.out.println(" From User DB " + user.getFirstname());
-			
 		}catch(NoResultException e){
 			e.printStackTrace();
 		}finally{
@@ -72,35 +85,14 @@ public class UserDB {
 		}
 		return user;
 	}
-	
-//	public static User select_filter(long id){
-//		EntityManager em = DBUtil.getEmFactory().createEntityManager(); 
-//		User user = new User();
-//		try {    
-//				
-//				model.User cust = em.find(model.User.class, id);   
-//				
-//				user.setId(cust.getId());
-//				user.setFirstname(cust.getFirstname());
-//				user.setLastname(cust.getLastname());
-//				user.setEmail(cust.getEmail());
-//				user.setZipcode(cust.getZipcode());
-//  
-//			} catch (Exception e){    
-//				System.out.println(e);   
-//			} finally {   
-//				em.close(); 	
-//			} 
-//		return user;
-//	}
-	
 
-	public static void insert(User comment) {
+
+	public static void insert(User user) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		trans.begin(); 
 		try {
-			em.persist(comment);
+			em.persist(user);
 			trans.commit();
 		} catch (Exception e) {
 			System.out.println(e);	

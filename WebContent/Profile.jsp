@@ -17,31 +17,36 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js"></script>
-<title>Insert title here</title>
+<title>Comments area</title>
+<style>h1{background: black; text:white}</style>
 </head>
-<body style="background-color:#9999FF">
+<body background="http://www.freewallpaperfullhd.com/wp-content/uploads/2015/02/Nature-Wallpaper-HD-1920x1080.jpg">
 
-<div class ="col-sm-4 col-sm-offset-4 ">
-<form class= "text-center" action="user_profile"  method="post">
-<div>
-	${alreadyin}
-</div>
+<nav class="navbar navbar-default" >
+	<ul class="nav navbar-nav navbar-left">
+	   <li role="presentation" >Welcome <b>${welcome}</b></li>
+	   <li role="presentation"><a href="/Bullhorm/user_profile">Profile</a></li>
+	   <li role="presentation"><a href="/Bullhorm/MyPosts">My posts</a></li>
+	   <li role="presentation"><a href="/Bullhorm/Friends_posts">People posts</a></li>
+	   <li role="presentation"><a href="/Bullhorm/Search">Search posts</a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li role="presentation" >${sign_in_out}</li>
+    </ul>
+</nav> 
 
-First Name:
-<input type="text"  class="form-control" placeholder= "ex. John" name="fName" required> </input><br>
-
-Last Name:
-<input type="text"  class="form-control" placeholder= "ex. Doe" name="lName" required> </input><br>
-
-Email:
-<input type="text" class="form-control" placeholder= "ex. email@domain.com" name="email" required></input><br>
-
-Zip Code:
-<input type="number"  class="form-control" placeholder= "ex. 55555" name="zip" required></input><br>
-
-
-<button   style="background-color:#CC66FF" type="submit"  class="form-control" value = "submit" class= "button btn-primary form-control">Create Account</button>
-</form>
-</div>
+<div class="panel panel-primary col-sm-5 col-sm-offset-4">
+		<div class= "panel-heading">
+			Person Detail
+		</div>	
+		<div class ="panel-body">
+			${Details}
+		</div>
+	</div>
+	<br><br><br><br><br><br><br><br><br><br><br>
+  ${posts}
+  ${post_field}
+  
+  
 </body>
 </html>

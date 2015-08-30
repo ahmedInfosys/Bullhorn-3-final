@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * 
  */
 @Entity
-@Table(name="COMMENTS",schema="TESTDB")
+@Table(name="COMMENTS", schema="TESTDB")
 @NamedQuery(name="Comment.findAll", query="SELECT c FROM Comment c")
 public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,6 +18,7 @@ public class Comment implements Serializable {
 	@Id
 	@SequenceGenerator(name = "COMMENTS_SEQ", catalog = "",schema="TESTDB",allocationSize = 1,initialValue = 1)
 	@GeneratedValue(strategy =  GenerationType.SEQUENCE,generator="COMMENTS_SEQ")
+
 	@Column(name="COMMENT_ID")
 	private long commentId;
 
@@ -26,6 +27,9 @@ public class Comment implements Serializable {
 
 	@Column(name="CONTENT_TEXT")
 	private String contentText;
+
+	@Column(name="POST_ID")
+	private long postId;
 
 	@Column(name="USER_ID")
 	private long userId;
@@ -55,6 +59,14 @@ public class Comment implements Serializable {
 
 	public void setContentText(String contentText) {
 		this.contentText = contentText;
+	}
+
+	public long getPostId() {
+		return this.postId;
+	}
+
+	public void setPostId(long postId) {
+		this.postId = postId;
 	}
 
 	public long getUserId() {

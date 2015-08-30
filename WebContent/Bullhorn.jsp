@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,36 +16,23 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js"></script>
-<title>Comments area</title>
-<style>h1{background: black; text:white}</style>
+<title>Bullhorn </title>
+<style>h1{ text:white}</style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
     <div>
       <ul class="nav navbar-nav">
-      	<li><h1><b>${welcome}</b></h1></li>
+      	<li><h4>Welcome to BullHorn, Please sign in or create account</h4> </li>
       </ul>
+     </div>
      
- ${sign_in_out}
-${account}	
-      
-    </div>
-    
-    
+		<ul class="nav nav-pills col-sm-offset-9"><br>
+  			<li role="presentation" class="active"><a href="/Bullhorm/SignIn.jsp">Sign In</a></li>
+ 			 <li role="presentation" class="active"><a href="/Bullhorm/SignUp.jsp">Create account</a></li>
+ 	
+		</ul>
   </nav>
-
-  ${comments}
-  
-  <div class="container">
-	<form role="form" method="post" action="put_comment">
-		<div ">
-			<textarea maxlength="5" class="form-control" rows="4" cols="200" name="comment" placeholder="comment"></textarea><br>
-			</div>
-			<div class="form-group col-sm-4 col-sm-offset-8">
-			<button type="submit" value = "submit" class= "button btn-primary form-control "><span class="glyphicon glyphicon-comment"></span> Comment</button>
-		</div>
-	</form>
-</div>
   
 </body>
 </html>
